@@ -437,3 +437,121 @@ json_ds=DatasetDict('csv',{
 dataset.to_csv('data.csv')
 dataset.to_json('data.json')
 ```
+
+### Data Collators:
+
+Data collators prepare your data for the model by batching and padding.  They're essential for handling variable-length sequences.
+
+**Types of Data Collators**
+
+Hugging Face provides several pre-built collators, each designed for a specific task:
+
+* **`DataCollatorWithPadding`**:  Handles padding of variable-length sequences.  Essential for tasks like text classification and sequence-to-sequence.  It uses a tokenizer's padding token to make all sequences in a batch the same length.
+```python
+
+
+```python
+from transformers import DataCollatorWithPadding, AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")  # Example tokenizer
+
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+
+# Example usage:
+fake_data = [{"input_ids": [1, 2, 3]}, {"input_ids": [1, 2, 3, 4, 5]}]
+padded_batch = data_collator(fake_data) 
+# padded_batch will have 'input_ids' padded to the same length, and 'attention_mask' indicating valid tokens.
+```
+
+* **`DataCollatorForSeq2Seq`**: Specialized for sequence-to-sequence tasks like translation and summarization.  Handles padding for both input and target sequences. It also dynamically determines the labels for decoder-only models by shifting the labels to the right and replacing the last token with -100 to ignore loss calculation.
+
+```python
+from transformers import DataCollatorForSeq2Seq
+
+data_collator = DataCollatorForSeq2Seq(model=model, tokenizer=tokenizer) # Requires model and tokenizer
+```
+
+* **`DataCollatorForLanguageModeling`**:  Used for language modeling tasks. Creates input and target sequences dynamically.  It applies techniques like masking to train the model to predict missing words.
+
+```python
+from transformers import DataCollatorForLanguageModeling
+
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=True)  # mlm for Masked Language Modeling, if false then will be used for causal laguage modelling.
+```
+
+* **`DataCollatorForTokenClassification`**: Designed for token classification tasks like Named Entity Recognition (NER).  Ensures labels are correctly aligned with padded sequences.
+
+```python
+from transformers import DataCollatorForTokenClassification
+
+data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer)
+```
+
+* **`DataCollatorForMultipleChoice`**: Used for multiple-choice question answering tasks.
+
+```python
+from transformers import DataCollatorForMultipleChoice
+
+data_collator = DataCollatorForMultipleChoice(tokenizer=tokenizer)
+```
+
+
+## Custom Data Collators
+
+You can create custom data collators for specialized needs.  This involves creating a class with a `__call__` method that takes a list of samples and returns a batch suitable for your model.  This is useful for tasks with unique data structures or processing requirements.  See the Hugging Face documentation for examples and details.
+
+```python
+from transformers import DataCollatorWithPadding
+import torch
+
+# Inherit from DataCollatorWithPadding for basic padding functionality
+class CustomDataCollator(DataCollatorWithPadding):
+    def __init__(self, tokenizer, max_length=None):
+        super().__init__(tokenizer, max_length=max_length)
+        # Add any custom attributes here, e.g., for special processing
+
+    def __call__(self, features):
+        # Perform basic padding
+        batch = super().__call__(features)
+
+        # Custom processing logic
+        # Example 1: Add a new key to the batch
+        batch['new_key'] = torch.tensor([f['some_feature'] for f in features])
+
+        # Example 2: Modify existing keys
+        if 'input_ids' in batch:
+            # Example: Truncate sequences longer than a threshold
+            threshold = 128  # Example threshold
+            batch['input_ids'] = batch['input_ids'][:, :threshold]
+            batch['attention_mask'] = batch['attention_mask'][:, :threshold]
+
+        # Example 3: Handle missing keys gracefully
+        if 'labels' not in batch:
+            # Provide default labels if they're not present in the input features
+            batch['labels'] = torch.tensor([-100] * len(features)) # Default labels
+
+        return batch
+
+
+
+
+# Example usage with a dummy dataset
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+data_collator = CustomDataCollator(tokenizer)
+
+
+# Dummy Features
+features = [
+    {'input_ids': tokenizer("This is a test sentence.", return_tensors="pt").input_ids[0], 'some_feature': 1},
+    {'input_ids': tokenizer("This is a longer test sentence.", return_tensors="pt").input_ids[0], 'some_feature': 0}
+]
+
+
+
+batch = data_collator(features)
+
+print(batch)
+
+```****
