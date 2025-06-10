@@ -117,6 +117,7 @@ SELECT string_to_array('apple,banana,cherry', ','); -- Returns '{apple,banana,ch
 
 SELECT name, unnest(colors) AS color
 FROM products;
+
 ```
 
 ### 3. Date/Time Functions

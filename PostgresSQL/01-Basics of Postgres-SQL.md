@@ -7,33 +7,33 @@ PostgreSQL (often shortened to Postgres) is a powerful, open-source object-relat
 
 It's important to understand that PostgreSQL *is* a type of SQL database.  The difference isn't one of "versus," but rather of "is a part of." SQL is the *language* used to interact with relational databases, while PostgreSQL is a *specific implementation* of a database system that uses SQL.
 
-| Feature          | Generic SQL Database                               | PostgreSQL                                      |
-|-----------------|----------------------------------------------------|-------------------------------------------------|
-| **Type**         | Abstract concept; a standard for database interaction | Specific implementation of an ORDBMS            |
-| **Data Types**   | Basic data types (INT, VARCHAR, etc.)              | Richer set of data types (JSON, arrays, ranges, etc.) |
-| **Extensions**   | Limited extensibility                             | Highly extensible with user-defined functions, types, and operators |
-| **Transactions** | Supports ACID properties                          | Robust transaction management, including advanced features |
-| **Concurrency**  | Varies depending on implementation                 | Advanced concurrency control mechanisms          |
-| **Open Source**  | Can be open source or proprietary                 | Open-source, with a large and active community |
-| **Standards Compliance** | Varies; may not fully comply with all SQL standards | Aims for high SQL standard compliance            |
-| **Cost**         | Varies greatly                                      | Free (open source)                              |
+| Feature                  | Generic SQL Database                                  | PostgreSQL                                                          |
+| ------------------------ | ----------------------------------------------------- | ------------------------------------------------------------------- |
+| **Type**                 | Abstract concept; a standard for database interaction | Specific implementation of an ORDBMS                                |
+| **Data Types**           | Basic data types (INT, VARCHAR, etc.)                 | Richer set of data types (JSON, arrays, ranges, etc.)               |
+| **Extensions**           | Limited extensibility                                 | Highly extensible with user-defined functions, types, and operators |
+| **Transactions**         | Supports ACID properties                              | Robust transaction management, including advanced features          |
+| **Concurrency**          | Varies depending on implementation                    | Advanced concurrency control mechanisms                             |
+| **Open Source**          | Can be open source or proprietary                     | Open-source, with a large and active community                      |
+| **Standards Compliance** | Varies; may not fully comply with all SQL standards   | Aims for high SQL standard compliance                               |
+| **Cost**                 | Varies greatly                                        | Free (open source)                                                  |
 
 
 **Postgres vs MySQL**
 
-| Feature          | PostgreSQL                               | MySQL                                     |
-|-----------------|-------------------------------------------|---------------------------------------------|
-| **Data Types**   | Richer set, including arrays, JSON, ranges | Fewer data types, simpler overall           |
-| **ACID Compliance** | Stricter ACID compliance                  | More relaxed ACID compliance in some cases  |
-| **Standards Compliance** | Generally better SQL standard compliance   | Can deviate from SQL standards sometimes     |
-| **Scalability**   | Excellent scalability, handles large datasets well | Good scalability, but can become challenging with extremely large datasets |
-| **Extensibility** | Highly extensible with user-defined functions, types, and operators | Less extensible, although plugins are available |
-| **Transactions** | Advanced transaction management features    | Simpler transaction management             |
-| **Full-Text Search** | Built-in, powerful full-text search       | Requires separate plugins or extensions     |
-| **JSON Support**  | Native JSON support with querying capabilities | Native JSON support, but querying capabilities are less advanced |
-| **Community & Support** | Large and active community, good documentation | Large community, but support can vary depending on the version and provider |
-| **Cost**         | Free (open-source)                        | Free (open-source), but commercial support is available |
-| **Ease of Use**   | Steeper learning curve                     | Generally considered easier to learn and use |
+| Feature                  | PostgreSQL                                                          | MySQL                                                                       |
+| ------------------------ | ------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Data Types**           | Richer set, including arrays, JSON, ranges                          | Fewer data types, simpler overall                                           |
+| **ACID Compliance**      | Stricter ACID compliance                                            | More relaxed ACID compliance in some cases                                  |
+| **Standards Compliance** | Generally better SQL standard compliance                            | Can deviate from SQL standards sometimes                                    |
+| **Scalability**          | Excellent scalability, handles large datasets well                  | Good scalability, but can become challenging with extremely large datasets  |
+| **Extensibility**        | Highly extensible with user-defined functions, types, and operators | Less extensible, although plugins are available                             |
+| **Transactions**         | Advanced transaction management features                            | Simpler transaction management                                              |
+| **Full-Text Search**     | Built-in, powerful full-text search                                 | Requires separate plugins or extensions                                     |
+| **JSON Support**         | Native JSON support with querying capabilities                      | Native JSON support, but querying capabilities are less advanced            |
+| **Community & Support**  | Large and active community, good documentation                      | Large community, but support can vary depending on the version and provider |
+| **Cost**                 | Free (open-source)                                                  | Free (open-source), but commercial support is available                     |
+| **Ease of Use**          | Steeper learning curve                                              | Generally considered easier to learn and use                                |
 
 
 **In short:**
@@ -53,7 +53,7 @@ It's important to understand that PostgreSQL *is* a type of SQL database.  The d
 CREATE DATABASE your_database;
 
 -- listing all db
-\list ; --This is a psql meta-command, not standard SQ
+\list ; --This is a psql meta-command, not standard SQL
 
 -- Connect to a database / similar to use DATABASE db
 \c your_database;  -- This is a psql meta-command, not standard SQL
@@ -102,7 +102,7 @@ SELECT * FROM User WHERE age BETWEEN 19 AND 25;
 SELECT * FROM User ORDER BY age DESC;
 
 -- Grouping data with GROUP BY
-SELECT COUNT(*) FROM User GROUP BY age;
+SELECT age,COUNT(*) FROM User GROUP BY age;
 
 -- Limiting results with LIMIT
 SELECT * FROM User LIMIT 2;
@@ -121,6 +121,7 @@ ALTER COLUMN name
 SET DATA TYPE VARCHAR(100) 
 DROP CONSTRAINT NOT NULL;
 
+--multiple updates
 ALTER Table User
 MODIFY age INT NOT NULL, Check (age>=18 and age<=60);
 
@@ -277,7 +278,7 @@ JOIN courses c ON sc.course_id = c.id;
 | **Numeric Functions**     | `abs()`, `round()`, `ceil()`, `floor()`, `sqrt()`, `random()`                                                                         | Mathematical operations (absolute value, rounding, square root, random numbers)            |
 | **Date/Time Functions**   | `now()`, `current_date`, `current_time`, `date_part()`, `extract()`, `age()`                                                          | Work with dates and times (current date/time, extracting parts, calculating age)           |
 | **Aggregate Functions**   | `count()`, `sum()`, `avg()`, `max()`, `min()`, `array_agg()`                                                                          | Perform calculations on sets of rows (count, sum, average, max, min, aggregate into array) |
-| **Window Functions**      | `rank()`, `row_number()`, `lag()`, `lead()`, `sum() OVER (PARTITION BY ...)`                                                          | Perform calculations across a set of table rows related to the current row                 |
+| **Window Functions**      | `rank()`,dense_rank(), `row_number()`, `lag()`, `lead()`, `sum() OVER (PARTITION BY ...)`                                             | Perform calculations across a set of table rows related to the current row                 |
 | **Array Functions**       | `array_append()`, `array_length()`, `unnest()`                                                                                        | Manipulate arrays (add elements, get length, expand array into rows)                       |
 | **JSON Functions**        | `json_build_object()`, `json_extract_path()`, `json_each()`, `jsonb_contains()`                                                       | Work with JSON data (create JSON objects, extract values, iterate, check for containment)  |
 | **Conditional Functions** | `CASE WHEN ... THEN ... ELSE ... END`, `COALESCE()`, `NULLIF()`                                                                       | Handle conditional logic and NULL values                                                   |

@@ -39,13 +39,13 @@ type Product={
 const useCartStore=create((set)=>{
 	cart:Product [],
 	
-	addToCart:(product:Product):=>(
+	addToCart:(product:Product)=>(
 		set((state)=>(
 			{cart:[...state.cart,product]}
 		))
 	),
 	
-	removeFromCart:(id:number):(
+	removeFromCart:(id:number)=>(
 		set((state)=>(
 			{cart:state.cart.filter(prod=>prod.id!=id)}
 		))

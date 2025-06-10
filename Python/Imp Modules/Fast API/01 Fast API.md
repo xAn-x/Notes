@@ -91,8 +91,8 @@ async def read_item(skip: int = 0, limit: int = 10):
 # Either use default values for query params or use `None` else FastAPI will always except a qury parameter from you
 @app.get("/songs")
 async def get_songs(genre:str|None=None)->list:
-	genre=genre.lower()
 	if genere:
+		genre=genre.lower()
 		return filter(lambda song=>song.genre==genre,songs)
 	return songs
 ```

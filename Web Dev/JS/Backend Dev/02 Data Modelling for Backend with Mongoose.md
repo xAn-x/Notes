@@ -30,7 +30,7 @@ userSchema=new mongoose.Schema({
 		unique:true,
 		required:true,
 		lowercase:true,
-		// for search optimisization / fast-query
+		// for search optimisization 
 		index:true
 	},
 	"email" : {
@@ -65,8 +65,6 @@ userSchema=new mongoose.Schema({
 },
 {timestamps:true})
 // timestamps auto stores createdAt and updatedAt field
-
-
 
 
 // Model uses schema to create an instance of field

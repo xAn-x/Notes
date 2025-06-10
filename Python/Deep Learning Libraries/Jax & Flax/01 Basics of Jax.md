@@ -1,4 +1,3 @@
-
 **JAX: The Power of NumPy, with a Twist**
 
 Imagine NumPy, the workhorse of Python for numerical computing, but with superpowers. That's essentially what JAX is.  It's a library that lets you write numerical code just like you would with NumPy, but it adds these key features:

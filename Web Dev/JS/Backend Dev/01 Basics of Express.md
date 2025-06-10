@@ -76,7 +76,7 @@ fetchBtn.addEventListener("click",fetchData)
 
 ### `Middleware:`
 
-Middleware refers to software components or functions that are used to handle requests and responses in an application or system. In the context of web development, middleware ==sits between the client and server== and plays a crucial role in processing HTTP requests, performing operations such as authentication, logging, error handling, and data transformation.
+Middleware refers to functions that are used to handle requests and responses in an application or system. In the context of web development, middleware ==sits between the client and server== and plays a crucial role in processing HTTP requests, performing operations such as authentication, logging, error handling, and data transformation.
 
 Middleware functions are ==executed in the order they are added to the application's middleware stack==. They have access to the request and response objects, and they can modify these objects, pass control to the next middleware function in the stack, or terminate the request-response cycle.
 
@@ -170,7 +170,7 @@ app.use(express.static("public-folder-path"))
 
 ```js
 % npm i express-generator -g
-% express <<app-name>> --view=<<view-engine>>
+% express <<app-name>> --view = <<view-engine>>
 % cd <<app-name>>
 % npm i 
 % npx nodemon 

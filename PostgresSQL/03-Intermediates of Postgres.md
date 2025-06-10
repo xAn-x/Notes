@@ -1,4 +1,4 @@
-****### 1. Joins
+### 1. Joins
 
 **Joins** are fundamental operations in SQL used to combine rows from two or more tables based on a related column between them.  The different types of joins determine which rows are included in the result set.
 
@@ -144,7 +144,7 @@ JOIN products p ON oi.product_id = p.id;
 
 3. **`INTERSECT`:** Returns only the rows that are common to *both* `SELECT` statements (the intersection of the sets).
 
-4. **`EXCEPT` (or `MINUS` in some databases, but not PostgreSQL):** Returns the rows that are in the first `SELECT` statement but *not* in the second `SELECT` statement (the difference of the sets).
+4. **`EXCEPT` (or `MINUS` in some databases):** Returns the rows that are in the first `SELECT` statement but *not* in the second `SELECT` statement (the difference of the sets).
 
 5. **`EXCEPT ALL`:** Similar to `EXCEPT`, but keeps all rows from the first `SELECT` statement, even if they appear multiple times, as long as they are not present in the second `SELECT` statement. (PostgreSQL-specific).
 
@@ -266,8 +266,7 @@ FROM employees
 GROUP BY department
 HAVING AVG(salary) > 75000; -- Filter groups with average salary > 75000
 
--- Clean up (optional)
--- DROP TABLE employees;
+
 ```
 
 **Key Differences between `WHERE` and `HAVING`:**
@@ -375,7 +374,7 @@ The `WITH` clause (also known as a Common Table Expression or CTE) lets you de
 
 **Example:**
 
-```mysql
+```plsql
 -- 1. Fetch employees who earn more than average salary of all emp
 
 -- without with
@@ -444,7 +443,7 @@ on ts.total_sales_per_store>av.avg_sales_per_store;
     * **Security:** Control access to data through procedures, granting specific permissions to execute them.
 * **Syntax (PostgreSQL - using PL/pgSQL):**
 
-```sql
+```plsql
 CREATE OR REPLACE PROCEDURE procedure_name(parameter1 datatype, parameter2 datatype, ...)
 LANGUAGE plpgsql
 AS $$
@@ -458,7 +457,7 @@ $$;
 
 * **Example:**
 
-```sql
+```plsql
 CREATE OR REPLACE PROCEDURE update_product_price(product_id INTEGER, new_price DECIMAL)
 LANGUAGE plpgsql
 AS $$
@@ -543,7 +542,7 @@ A transaction in SQL is a sequence of one or more SQL statements that are treate
 
 **Example in PostgreSQL:**
 
-```sql
+```plsql
 -- Create a sample table
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,

@@ -14,7 +14,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter,Routes,Route } from "react-router"; 
 import App from "./app"; 
-import {fetchProjects} from "@/componets/project/jsx"
+import {fetchProjects} from "@/componets/project.jsx"
 
 const root = document.getElementById("root"); ReactDOM.createRoot(root).render(
 	// Wrap your whole app with BrowserRouter
@@ -30,7 +30,7 @@ const root = document.getElementById("root"); ReactDOM.createRoot(root).render(
 			// path of the parent is auto included in the child
 			// Here U can use <DashBoord/> to define Layout,
 			// U can use react-router-dom's <Outlet/> for that
-			<Route path="dashboard" element={<Dashboard />}>
+			<Route path="dashboard"}>
 				 // Defaults to Home
 				 <Route index element={<Home />} /> 
 				 // '/dashboard/setting' renders the Settings component

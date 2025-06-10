@@ -1,4 +1,3 @@
-
 1. `Dates in JS`
 
 ```js
@@ -84,7 +83,7 @@ let doubledNumbers = numbers.map(num => num * 2);
 let sum = numbers.reduce((acc, curr) => acc + curr, 0);
 
 // Using map and reduce together to calculate the square of the sum of squares of all elements
-let squareOfSumOfSquares = **numbers**
+let squareOfSumOfSquares = numbers
   .map(num => num ** 2) // square each element
   .reduce((acc, curr) => acc + curr, 0); // sum the squares
 
@@ -170,37 +169,34 @@ delete person.email;
 Code example demonstrating the use of `this` property with normal function and arrow function:
 
 ```javascript
-// Normal function
-function normalFunction() {
-  console.log(this); // 'this' refers to the global object (window in browser, global in Node.js)
-}
 
-normalFunction(); // Output: window object (in browser) or global object (in Node.js)
-
-
-
-
-// Arrow function
-let arrowFunction = () => {
-  console.log(this); // 'this' inherits from the surrounding lexical context (often the parent scope)
-};
-
-arrowFunction(); // Output: window object (in browser) or global object (in Node.js) if executed in the global scope
-
-
-
-
-// Using 'this' in an object method with arrow function
-let obj = {
-  name: 'John',
-  greet: function() {
-    setTimeout(() => {
-      console.log(`Hello, ${this.name}!`); // 'this' refers to the enclosing object (obj) due to arrow function
+const myObject = {
+  name: "My Object",
+  
+  // Normal function: "this" refers to the object when invoked as a method.
+  startTimerNormal: function() {
+    // Assign "this" (which is myObject) to a variable
+    const that = this;
+    setTimeout(function() {
+      // In a normal function, "this" is not bound to myObject by default.
+      // Here, we use the variable "that" to access the original context.
+      console.log('Normal function:', that.name);
     }, 1000);
   },
+
+
+  // Arrow function: "this" is lexically inherited from the surrounding scope.
+  startTimerArrow: function() {
+    setTimeout(() => {
+      // Since arrow functions don't have their own "this", they inherit
+      // "this" from the enclosing method, which is myObject.
+      console.log('Arrow function:', this.name);
+    }, 1000);
+  }
 };
 
-obj.greet(); // Output: Hello, John! (after 1 second delay)
+myObject.startTimerNormal(); // After 1 second, prints: Normal function: My Object
+myObject.startTimerArrow();  // After 1 second, prints: Arrow function: My Object
 ```
 
 In the code above, the arrow function in `obj.greet()` maintains the `this` context of the enclosing object (`obj`), allowing it to access the `name` property correctly.
@@ -222,7 +218,7 @@ In the code above, the arrow function in `obj.greet()` maintains the `this` cont
 
 8. `Hoisting in JS:` Hoisting in JavaScript is a mechanism where variable and function declarations are moved to the top of their containing scope during the compilation phase, before the code is executed. This means that regardless of where variables and functions are declared within a scope, they are conceptually moved to the top of their scope during execution.
 
-	However, it's important to note that only the declarations are hoisted, not the initializations or assignments. Let's break down hoisting for variables and functions:
+	However, it's important to note that **only the declarations are hoisted, not the initializations or assignments**. Let's break down hoisting for variables and functions:
 	
 	1. **Variable Hoisting**:
 	   - Variable declarations (using `var`, `let`, or `const`) are hoisted to the top of their containing scope.
@@ -235,6 +231,9 @@ In the code above, the arrow function in `obj.greet()` maintains the `this` cont
 ```javascript
 console.log(x); // Output: undefined (variable declaration is hoisted)
 var x = 10; // Variable initialization
+
+console.log(x); // Output: Error (let and const are not initialized)
+let x = 10; // Variable initialization
 ```
    
    2. **Function Hoisting**:
@@ -323,6 +322,7 @@ const sum = numbers.reduce((acc, curr) => acc + curr, 0);
 // Output: 15 (1 + 2 + 3 + 4 + 5)
 
 // forEach: Iterate over each element and perform a function on each element
+// diff b/w forEach and map is that map return a new iterator , forEach don't
 numbers.forEach(num => console.log(num * 2));
 // Output: 2, 4, 6, 8, 10 (doubles each element)
 

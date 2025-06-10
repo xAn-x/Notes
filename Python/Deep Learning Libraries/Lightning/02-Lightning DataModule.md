@@ -75,5 +75,6 @@ trainer=L.Trainer(...)
 MNIST=MNISTDataModule(path)
 trainer.fit(model=model,datamodule=MNISTDataModule)
 ```
--==Warning==:
+
+==Warning==
 `prepare_data` is called from the main process. It is not recommended to assign state here (e.g. `self.x = y`) since it is called on a single process and if you assign states here then they won’t be available for other processes.

@@ -13,7 +13,6 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 
-
 class LitAutoEncoder(L.LightningModule):
 	def __init__(self,encoder,decoder):
 		super().__init__()
@@ -70,6 +69,7 @@ autoEncoder=LitAutoEncoder(encoder,decoder)
 # Lightning provide with many helpfull callbacks that u can use
 from lightning.pytorch.callbacks.early_stopping import EarlyStopping
 early_stopping=EarlyStopping(monitor="val_accuracy", min_delta=0.01, patience=3, 	 verbose=False, mode="max",check_val_evey_n_epoch=None,val_check_interval=0.5)
+
 # check validation set after completing 50% of a epochs {i.e 1/2 batches in 1 epoch}
 
 

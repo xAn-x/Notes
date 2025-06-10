@@ -2,7 +2,7 @@
 Langchain provide us with multiple building blocks that we can use directly or configure them according to our needs.
 
 ## 1.Prompt Templates
-Are responsible for formatting user input into a format that can be passed to a language model.
+Are responsible for formatting user input into a format that can be passed to a language model. This is to improve the output of LLM by properly formatting the query.
 
 ```python
 from langchain_core.prompt import PromptTemplate,ChatPromptTemplate,MessagesPlaceHolder

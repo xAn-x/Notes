@@ -209,7 +209,7 @@ class Dummy(BaseClass):
 	
 	@field_validator('hash_tag') # Note first all field constraints are verified and then after we use this
 	@classmethod # validator are class-methods as they need to validate before creating an instance of class
-	# value: **actual**-field value, 
+	# value: actual-field value, 
 	# values: all field-values that are validated correctly
 	def validate_hash_tag(cls,value,values):
 		try:

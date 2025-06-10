@@ -7,12 +7,13 @@ pip install langchain langchain-openai langchain-google-vertextai
 
 ## **Simple Chatbot:**
 
-```env
-
+```.env
 LANGCHAIN_API_KEY="..."
 OPENAI_API_KEY="..."
 GOOGLE_API_KEY="..."
 ``` 
+
+
 ```python
 from dotenv import load_env
 from langchain_openai import ChatOpenAI
@@ -93,6 +94,7 @@ output=chain.invoke({'language':'French','query':'Hello'})
 ```python
 from lanchain_core.runnables import RunnableLambda
 
+# RunnableLambda help u create runnables using your own function 
 runnable=RunnableLambda(lambda x:str(x))
 runnable.invoke(2) # '2'
 runnable.stream(2) # generator-obj

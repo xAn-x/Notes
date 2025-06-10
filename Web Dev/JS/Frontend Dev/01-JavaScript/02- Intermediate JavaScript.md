@@ -2,6 +2,7 @@
 ## 1. Asynchronous JavaScript:
 
 JavaScript is a synchronous, single-threaded language. This means that JavaScript code is executed one line at a time, in the order it is written. Each line of code must wait for the previous line to finish executing before it can start.
+
 ![[Pasted image 20240323092959.png]]
 
 Blocking vs Non-Blocking
@@ -123,7 +124,6 @@ const person = {
 
 ```js
 function User(name,age){
-/
 	return this; // returning the instance ,will auto return 'this' if u don't
 }
 
@@ -209,6 +209,9 @@ Object.defineProperty(prototype, "greet", {
 });
 
 obj.greet(); // Hello, my name is John Doe and I am 30 years old.
+
+// ==== or ====
+Object.assign(prototype,greet)
 
 // ==== or ====
 

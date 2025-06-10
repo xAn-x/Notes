@@ -1,15 +1,10 @@
 TorchMetrics is a collection of 100+ PyTorch metrics implementations and an easy-to-use API to create custom metrics. It offers:
 
 - A standardized interface to increase reproducibility
-    
 - Reduces Boilerplate
-    
 - Distributed-training compatible
-    
 - Rigorously tested
-    
 - Automatic accumulation over batches
-    
 - Automatic synchronization between multiple devices
 
 You can use TorchMetrics in any PyTorch/Lightning model
