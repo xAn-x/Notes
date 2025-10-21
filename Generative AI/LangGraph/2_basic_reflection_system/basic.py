@@ -11,15 +11,18 @@ GENERATE = "generate"
 graph = MessageGraph()
 
 def generate_node(state):
+    # This will be appended to the state
     return generation_chain.invoke({
         "messages": state
     })
 
 
-def reflect_node(messages):
+def reflect_node(state):
     response = reflection_chain.invoke({
-        "messages": messages
+        "messages": state
+
     })
+    # This will be appended to the state
     return [HumanMessage(content=response.content)]
 
 
@@ -29,6 +32,7 @@ graph.set_entry_point(GENERATE)
 
 
 def should_continue(state):
+    # Don't continue if the state is too long
     if (len(state) > 6):
         return END 
     return REFLECT
@@ -39,6 +43,7 @@ graph.add_edge(REFLECT, GENERATE)
 
 app = graph.compile()
 
+# Get the graph diagram
 print(app.get_graph().draw_mermaid())
 app.get_graph().print_ascii()
 

@@ -18,7 +18,6 @@ from langchain_openai import ChatOpenAi
 from langchain_core.messages import HumanMessage
 
 llm = ChatOpenAI(model="gpt-4o-mini")
-%%  %%
 # Decorate function to use it as a tool
 @tool
 def add(a: int, b: int) -> int:
@@ -52,7 +51,7 @@ messages.append(ai_msg)
 ```python
 for tool_call in ai_msg.tool_calls:
     selected_tool = {"add": add, "multiply": multiply}[tool_call["name"].lower()]
-    tool_msg = selected_tool.invoke(tool_call) # since we have wraped it using @tool else use eval()
+    tool_msg = selected_tool.invoke(tool_call)
     messages.append(tool_msg) # This will help model determine the ans for each tool call model think off
     
 # Now u will get the dezire result
