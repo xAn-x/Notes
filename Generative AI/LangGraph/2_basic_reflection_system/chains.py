@@ -25,7 +25,7 @@ reflection_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-llm = ChatOpenAI(model="gpt-4o")
 
+llm = ChatOpenAI(model="gpt-4o")
 generation_chain = generation_prompt | llm
 reflection_chain = reflection_prompt | llm

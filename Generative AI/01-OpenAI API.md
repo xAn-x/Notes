@@ -1,4 +1,4 @@
-# Python
+ # Python
 
 ```cmd
 pip instal openai
@@ -12,7 +12,6 @@ import openai
 openai.api_key="API_KEY"
 openai.list_models() # list of all available model
 ```
-## Generate Text:
 
 ```python
 from openai import OpenAI

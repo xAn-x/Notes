@@ -84,7 +84,7 @@ response=model.invoke(prompt_result)
 output=output_parser(response)
 
 
-# With LCEL
+# With LCEL (chain)
 chain=system_prompt | model | output_parser
 output=chain.invoke({'language':'French','query':'Hello'})
 ```
@@ -121,7 +121,7 @@ chain.invoke({'foo':7}) # [{'branch_1':7},('branch_2':[{'foo':7},{'foo':7}])]
 form langchain_core.runnables import RunnablePassThrough # merge input of runnable with its output
 runnable=RunnableLambda(lambda x:x['foo']+10)
 chain=RunnablePassThrough(bar=runnable)
-chain.invoke({'foo':7}) # {'foo':7,'bar':10}
+chain.invoke({'foo':7}) # {'foo':7,'bar':17}
 
 
 # Branching based on some condn
@@ -130,7 +130,7 @@ system_prompt=ChatPrompTemplate.from_messages([
 	("system","Classify user feedback into one the 3 classes :positive,negative,neutral"),
 	("human","{feedback}")
 ])
-
+****
 positive_template=ChatPrompTemplate.from_messages([
 	("system","Ask user what he likes about the product and any other feature he think i.e missing?"),
 	("human","{feedback}")
@@ -159,6 +159,8 @@ branches=RunnableBranch(
 )
 
 chain=system_prompt | model | StrOutputParser() | RunnableBranch 
+
+chain.invoke({"human":"I hate this chocolate,taste like wood"})
 
 # U can get the graph,config what to do when a run start/end read more @ their site...
 ```

@@ -17,6 +17,11 @@ prompt_template = ChatPromptTemplate.from_messages(
     ]
 )
 
+# Without LCEL
+input_to_llm = prompt_template.invoke({"animal": "elephant", "fact_count": 1})
+response = model.invoke([input_to_llm])
+result=StrOutputParser().invoke(response)
+
 # Create the combined chain using LangChain Expression Language (LCEL)
 chain = prompt_template | model | StrOutputParser()
 # chain = prompt_template | model

@@ -1,3 +1,8 @@
+# Reflexion Agent System : Reflection Agent + Fact Checker
+# Reduce helluction
+# The main component of reflexion agent is the actor, it reflects on its responses and re-executes.
+# It can do this with or without tools to improve basedon self critique that is grounded in external data.
+# Reflexion agents have episodic memory, refers to an agent's ability to remember past interactions, rather than hust general knowledge.
 from typing import List
 
 from langchain_core.messages import BaseMessage, ToolMessage

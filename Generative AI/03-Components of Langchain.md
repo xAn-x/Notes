@@ -192,10 +192,6 @@ print(output)
 # Output: {'key1': 'value1', 'key2': 'value2'}
 ```
 
-**Obsidian Copilot Integration:**
-
-Obsidian Copilot can integrate with LangChain to provide enhanced note-taking capabilities. For example, you can use LangChain's output parsers to extract structured data from text, code, or web pages and store it in your Obsidian notes.
-
 **Example:**
 
 You can use LangChain's `HtmlParser` to extract specific data from a web page and store it in your Obsidian note:

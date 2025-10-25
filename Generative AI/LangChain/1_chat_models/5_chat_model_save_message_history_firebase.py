@@ -24,7 +24,7 @@ load_dotenv()
 
 # Setup Firebase Firestore
 PROJECT_ID = "langchain-a5989"
-SESSION_ID = "user_session_new"  # This could be a username or a unique ID
+SESSION_ID = "user_session_new"  # This could be a username or a unique ID --> to identiy the conv
 COLLECTION_NAME = "chat_history"
 
 # Initialize Firestore Client
